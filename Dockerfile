@@ -1,7 +1,6 @@
-# Use Node.js LTS
-FROM node:18-alpine
+# Use Node.js 20 (REQUIRED for Next.js)
+FROM node:20-alpine
 
-# Set working directory
 WORKDIR /app
 
 # Copy dependency files
@@ -10,13 +9,13 @@ COPY package*.json ./
 # Install dependencies
 RUN npm ci
 
-# Copy project files
+# Copy source
 COPY . .
 
-# Build Next.js app
+# Build Next.js
 RUN npm run build
 
-# Expose port Cloud Run expects
+# Cloud Run port
 EXPOSE 3000
 
 # Start app
